@@ -2,10 +2,8 @@ import requests
 from urllib3.exceptions import InsecureRequestWarning
 
 from agent.config import ConfigurationManager
-from agent.helpers.exceptions import (
-    InvalidAPIKeyException,
-    InvalidRequestsException,
-)
+from agent.helpers.exceptions import (InvalidAPIKeyException,
+                                      InvalidRequestsException)
 
 # The package is defined dynamically and it actually exists.
 # pylint: disable=no-member
@@ -13,16 +11,29 @@ requests.packages.urllib3.disable_warnings(  # type: ignore[attr-defined]
     category=InsecureRequestWarning,
 )
 
+ORCHESTRATOR_REPORT_ROUTE = "REPORT"
+
 
 class Reporter:
+    config: ConfigurationManager
     api_key: str
     request_url: str
 
     def __init__(self) -> None:
-        config = ConfigurationManager()
+        self.config = ConfigurationManager()
+        self.api_key = self.config.api_key
 
-        self.api_key = config.api_key
-        self.request_url = config.request_url
+        self.__build_report_url()
+
+    def __build_report_url(self) -> None:
+        self.request_url = (
+            "https://"
+            + self.config.orchestration_agent_address
+            + ":"
+            + self.config.orchestration_agent_port
+            + "/"
+            + ORCHESTRATOR_REPORT_ROUTE
+        )
 
     def report_data(self, data: dict) -> None:
         sent_data = {"api_key": self.api_key, "data": data}

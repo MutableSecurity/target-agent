@@ -13,9 +13,14 @@ class ConfigurationManager(GenericConfigurationManager):
             default_value=None,
         ),
         ConfigurationKey(
-            "orchestration_agent_url",
+            "orchestration_agent_address",
             StringDataType,
             default_value=None,
+        ),
+        ConfigurationKey(
+            "orchestration_agent_port",
+            IntegerDataType,
+            default_value=40400,
         ),
         ConfigurationKey(
             "report_period",

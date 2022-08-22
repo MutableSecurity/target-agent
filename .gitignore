@@ -1,6 +1,9 @@
 # Local configuration file
 /.mutablesecurity
 
+# Symbolic link to the local MutableSecurity package
+agent/mutablesecurity
+
 # Poetry
 /.venv/
 /dist/
