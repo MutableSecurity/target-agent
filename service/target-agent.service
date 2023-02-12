@@ -1,0 +1,13 @@
+[Unit]
+Description=MutableSecurity's agent for collecting and reporting data about installed security solutions 
+Documentation=https://app.mutablesecurity.io/docs
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/root/target-agent
+Environment=PYTHONPATH=/root/target-agent/agent
+ExecStart=/root/target-agent/.venv/bin/python agent/agent/agent.py
+Restart=on-failure

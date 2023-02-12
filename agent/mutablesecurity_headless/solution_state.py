@@ -1,6 +1,6 @@
-from mutablesecurity import config
-from mutablesecurity.leader import Connection, ConnectionFactory
-from mutablesecurity.main import Main
+from agent.mutablesecurity import config
+from agent.mutablesecurity.leader import Connection, ConnectionFactory
+from agent.mutablesecurity.main import Main
 
 
 class SolutionState:

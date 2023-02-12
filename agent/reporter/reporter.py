@@ -11,7 +11,7 @@ requests.packages.urllib3.disable_warnings(  # type: ignore[attr-defined]
     category=InsecureRequestWarning,
 )
 
-ORCHESTRATOR_REPORT_ROUTE = "REPORT"
+ORCHESTRATOR_REPORT_ROUTE = "report"
 
 
 class Reporter:
@@ -30,7 +30,7 @@ class Reporter:
             "https://"
             + self.config.orchestration_agent_address
             + ":"
-            + self.config.orchestration_agent_port
+            + str(self.config.orchestration_agent_port)
             + "/"
             + ORCHESTRATOR_REPORT_ROUTE
         )

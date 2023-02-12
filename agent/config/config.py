@@ -1,36 +1,43 @@
-from mutablesecurity.config import (
+from agent.mutablesecurity.config.config import (
     ConfigurationKey,
-    GenericConfigurationManager,
+    ConfigurationManager as GenericConfigurationManager,
 )
-from mutablesecurity.helpers.data_type import IntegerDataType, StringDataType
+from agent.mutablesecurity.helpers.data_type import IntegerDataType, StringDataType
 
+from enum import Enum
 
 class ConfigurationManager(GenericConfigurationManager):
-    KEYS = [
-        ConfigurationKey(
+    class ConfigurationKeys(Enum):
+        """Enumeration for all the keys from the configuration file."""
+
+        CONFIGURATION_FILENAME = ConfigurationKey(
+            "configuration_filename",
+            StringDataType,
+            default_value=".mutablesecurity",
+        )
+        API_KEY = ConfigurationKey(
             "api_key",
             StringDataType,
             default_value=None,
-        ),
-        ConfigurationKey(
+        )
+        ORCHESTRATION_AGENT_ADDRESS = ConfigurationKey(
             "orchestration_agent_address",
             StringDataType,
             default_value=None,
-        ),
-        ConfigurationKey(
+        )
+        ORCHESTRATION_AGENT_PORT = ConfigurationKey(
             "orchestration_agent_port",
             IntegerDataType,
             default_value=40400,
-        ),
-        ConfigurationKey(
+        )
+        REPORT_PERIOD = ConfigurationKey(
             "report_period",
             IntegerDataType,
             default_value=60,
-        ),
-    ]
-    FILENAME = ".mutablesecurity"
+        )
 
     def __init__(self) -> None:
         super().__init__(
-            ConfigurationManager.KEYS, ConfigurationManager.FILENAME
+            ".mutablesecurity",
+            ConfigurationManager, 
         )
